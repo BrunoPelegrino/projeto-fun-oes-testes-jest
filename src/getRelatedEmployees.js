@@ -24,10 +24,10 @@ function getRelatedEmployees(managerId) {
   }
   if(verify === true) {
     const managedEmployees = employees.filter((employee) => employee.managers.includes(managerId));
-    return managedEmployees.map((employees) => {
+     const employeesArr = managedEmployees.map((employees) => {
       return `${employees.firstName} ${employees.lastName}`
     })
-
+    return employeesArr
   }
 }
 
