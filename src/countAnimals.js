@@ -16,6 +16,7 @@ console.log(acc); */
   }
   const { specie , sex } = animal;
   const findSpecie = species.find((target) => target.name === specie)
+  console.log(findSpecie);
   
   if (sex) {
     
