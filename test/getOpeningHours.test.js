@@ -1,4 +1,4 @@
-const getOpeningHours = require('../src/getOpeningHours');
+const { getOpeningHours, fix12 } = require('../src/getOpeningHours');
 
 describe('Testes da função getOpeningHours', () => {
     const hours = {
@@ -40,6 +40,30 @@ describe('Testes da função getOpeningHours', () => {
      test('testa a funçao getOpeningHours Para os argumentos Tuesday e 09:60-AM deve lançar uma exceção com a mensagem: The minutes must be between 0 and 59', () => { 
         expect(() => getOpeningHours('Tuesday', '09:60-AM')).toThrow('The minutes must be between 0 and 59')
      })
+     test('Deve converter 12 para 0 na hora, abertura e fechamento', () => {
+      const result = fix12(12, 12, 12);
+      expect(result).toEqual({ h: 0, o: 0, c: 0 });
+    });
+  
+    test('Deve manter horas diferentes de 12 inalteradas', () => {
+      const result = fix12(11, 10, 9);
+      expect(result).toEqual({ h: 11, o: 10, c: 9 });
+    });
+  
+    test('Deve converter 12 para 0 apenas na hora de abertura', () => {
+      const result = fix12(11, 12, 9);
+      expect(result).toEqual({ h: 11, o: 0, c: 9 });
+    });
+  
+    test('Deve converter 12 para 0 apenas na hora de fechamento', () => {
+      const result = fix12(11, 10, 12);
+      expect(result).toEqual({ h: 11, o: 10, c: 0 });
+    });
+  
+    test('Deve converter 12 para 0 apenas na hora fornecida', () => {
+      const result = fix12(12, 10, 9);
+      expect(result).toEqual({ h: 0, o: 10, c: 9 });
+    });
 
      
      
